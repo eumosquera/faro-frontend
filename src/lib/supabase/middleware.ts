@@ -1,11 +1,17 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-// Rutas que NO requieren sesión activa.
-const PUBLIC_PATHS = ['/login', '/auth'];
+// Coincidencia EXACTA (nunca startsWith, o '/' marcaría todo como público)
+const PUBLIC_EXACT_PATHS = ['/', '/precios'];
+
+// Coincidencia por prefijo: cualquier sub-ruta también es pública
+const PUBLIC_PREFIX_PATHS = ['/login', '/auth', '/registro'];
 
 function isPublicPath(pathname: string): boolean {
-    return PUBLIC_PATHS.some((path) => pathname.startsWith(path));
+    return (
+        PUBLIC_EXACT_PATHS.includes(pathname) ||
+        PUBLIC_PREFIX_PATHS.some((path) => pathname.startsWith(path))
+    );
 }
 
 /**
@@ -14,7 +20,6 @@ function isPublicPath(pathname: string): boolean {
  * middleware) y redirige a /login si no hay sesión en una ruta protegida.
  */
 export async function updateSession(request: NextRequest) {
-    console.log('middleware ejecutándose', request.nextUrl.pathname)
     let supabaseResponse = NextResponse.next({ request });
 
     const supabase = createServerClient(
