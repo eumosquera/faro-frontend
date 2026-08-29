@@ -3,15 +3,21 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useMyProfile } from '@/modules/profile/hooks/use-my-profile';
 import { NAV_GROUPS } from './nav-items';
 
 export function AppSidebar() {
     const pathname = usePathname();
+    const { data: profile } = useMyProfile();
+
+    const complexName = profile?.primaryMembership?.residentialComplex.name ?? 'Faro';
 
     return (
         <aside className="bg-sidebar text-sidebar-foreground flex h-screen w-64 flex-col border-r border-sidebar-border">
             <div className="flex h-16 items-center gap-2 px-6">
-                <span className="text-h4 font-bold tracking-tight">Faro</span>
+                <span className="text-h4 truncate font-bold tracking-tight" title={complexName}>
+                    {complexName}
+                </span>
             </div>
 
             <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-4">
