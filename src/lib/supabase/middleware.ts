@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 // Coincidencia EXACTA (nunca startsWith, o '/' marcaría todo como público)
-const PUBLIC_EXACT_PATHS = ['/', '/precios'];
+const PUBLIC_EXACT_PATHS = ['/', '/precios','/sin-acceso'];
 
 // Coincidencia por prefijo: cualquier sub-ruta también es pública
 const PUBLIC_PREFIX_PATHS = ['/login', '/auth', '/registro'];
