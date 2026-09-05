@@ -11,6 +11,24 @@ export interface MyProfile {
         residentialComplex: { id: string; name: string };
         role: { code: string; name: string };
     } | null;
+    memberships: Array<{
+        residentialComplex: { id: string; name: string };
+        role: { code: string; name: string };
+    }>;
+    subscription: {
+        id: string;
+        billingCycle: 'MONTHLY' | 'QUARTERLY' | 'YEARLY';
+        price: number;
+        status: 'PENDING_PAYMENT' | 'ACTIVE' | 'GRACE_PERIOD' | 'EXPIRED' | 'CANCELLED';
+        startDate: string;
+        nextBillingDate: string | null;
+        plan: {
+            code: string;
+            name: string;
+            maxComplexes: number;
+            maxUnits: number;
+        };
+    } | null;
 }
 
 export function useMyProfile() {
