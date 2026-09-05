@@ -151,7 +151,7 @@ export function RegistrationForm() {
             return;
         }
 
-        router.push('/dashboard');
+        router.push('/inicio');
         router.refresh();
     }
 

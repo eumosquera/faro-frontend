@@ -43,7 +43,7 @@ export function LoginForm() {
             return;
         }
 
-        const redirectTo = searchParams.get('redirectTo') ?? '/dashboard';
+        const redirectTo = searchParams.get('redirectTo') ?? '/inicio';
         router.push(redirectTo);
         router.refresh(); // fuerza a que el middleware/Server Components relean la sesión
     }
